@@ -7,6 +7,7 @@ import main.com.noel.controller.GameController;
 import main.com.noel.model.Scoring;
 import main.com.noel.model.Team;
 import main.com.noel.observer.FinalScorePredictionObserver;
+import main.com.noel.observer.GameNewsGenerator;
 import main.com.noel.observer.GameResultsObserver;
 import main.com.noel.observer.GameSummaryObserver;
 
@@ -25,6 +26,7 @@ public class Main {
     scoring.registerObserver(new GameSummaryObserver());
     scoring.registerObserver(new FinalScorePredictionObserver());
     scoring.registerObserver(new GameResultsObserver());
+    scoring.registerObserver(new GameNewsGenerator());
 
     System.out.println("Game Start");
     while (scoring.getGameQuarter() < 4) {

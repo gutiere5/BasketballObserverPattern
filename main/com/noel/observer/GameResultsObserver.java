@@ -23,6 +23,7 @@ public class GameResultsObserver implements ScoringObserver {
     System.out.printf(
         "Team %s Total Wins: %d\nTeam %s Total Wins %d\n",
         teamA.getName(), teamA.getTotalWins(), teamB.getName(), teamB.getTotalWins());
+    System.out.println();
   }
 
   private void getWinner() {
