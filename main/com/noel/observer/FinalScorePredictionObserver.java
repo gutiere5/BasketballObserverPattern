@@ -17,10 +17,12 @@ public class FinalScorePredictionObserver implements ScoringObserver {
   }
 
   public void predictFinalScore() {
-    System.out.println("Predicting final score...");
     System.out.printf(
-        "Final score prediction:\nTeam A: %d \nTeam B: %d%n",
-        generatePrediction(teamA.getScore()), generatePrediction(teamB.getScore()));
+        "Final score prediction:\nTeam %s: %d \nTeam %s: %d%n",
+        teamA.getName(),
+        generatePrediction(teamA.getPoints()),
+        teamB.getName(),
+        generatePrediction(teamB.getPoints()));
     System.out.println();
   }
 

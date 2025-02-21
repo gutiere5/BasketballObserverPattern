@@ -10,8 +10,8 @@ public class GameSummaryObserver implements ScoringObserver {
     Team teamA = scoring.getTeamA();
     Team teamB = scoring.getTeamB();
     System.out.println("Game Summary:");
-    System.out.println("Team " + teamA.getName() + ": " + teamA.getScore() + " points");
-    System.out.println("Team " + teamB.getName() + ": " + teamB.getScore() + " points");
+    System.out.println("Team " + teamA.getName() + ": " + teamA.getPoints() + " points");
+    System.out.println("Team " + teamB.getName() + ": " + teamB.getPoints() + " points");
     System.out.println("Quarter: " + scoring.getGameQuarter());
     System.out.println();
   }

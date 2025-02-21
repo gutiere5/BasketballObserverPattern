@@ -1,0 +1,3 @@
+Team, Wins, Losses, Draws
+Lakers, 7, 2, 1
+Bulls, 5, 1, 3
