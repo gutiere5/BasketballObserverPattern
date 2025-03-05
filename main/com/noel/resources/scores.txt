@@ -1,0 +1,10 @@
+Lakers,43,Warriors,25,Lakers
+Lakers,24,Warriors,25,Warriors
+Lakers,34,Warriors,25,Lakers
+Lakers,33,Warriors,30,Lakers
+Lakers,20,Celtics,34,Celtics
+Celtics,39,Warriors,43,Warriors
+Bulls,43,Lakers,24,Bulls
+Celtics,44,Warriors,39,Celtics
+Warriors,38,Celtics,30,Warriors
+Lakers,44,Bulls,38,Lakers
