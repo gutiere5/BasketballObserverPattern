@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import main.com.noel.observable.ScoringObservable;
 import main.com.noel.observer.FinalScorePredictionObserver;
+import main.com.noel.observer.GameSummaryObserver;
 import main.com.noel.observer.ScoringObserver;
 
 public class Scoring implements ScoringObservable {
@@ -65,6 +66,14 @@ public class Scoring implements ScoringObservable {
   public void notifyPredictions() {
     for (ScoringObserver observer : observerList) {
       if (observer instanceof FinalScorePredictionObserver) {
+        observer.update(this);
+      }
+    }
+  }
+
+  public void notifyGameSummary() {
+    for (ScoringObserver observer : observerList) {
+      if (observer instanceof GameSummaryObserver) {
         observer.update(this);
       }
     }

@@ -10,3 +10,10 @@ Warriors,38,Celtics,30,Warriors
 Lakers,44,Bulls,38,Lakers
 Bulls,29,Celtics,30,Celtics
 Lakers,40,Celtics,19,Lakers
+Celtics,34,Bulls,33,Celtics
+Lakers,31,Warriors,21,Lakers
+Warriors,9,Bulls,16,Bulls
+Warriors,20,Bulls,38,Bulls
+Warriors,47,Bulls,40,Warriors
+Celtics,28,Warriors,42,Warriors
+Celtics,31,Warriors,16,Celtics

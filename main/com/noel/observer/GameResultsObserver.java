@@ -20,10 +20,7 @@ public class GameResultsObserver implements ScoringObserver {
   private void displayTeamResults() {
     System.out.println("Game results:");
     getWinner();
-    System.out.printf(
-        "Team %s Total Wins: %d\nTeam %s Total Wins %d\n",
-        teamA.getName(), teamA.getTotalWins(), teamB.getName(), teamB.getTotalWins());
-    System.out.println();
+    displayTeamStats();
   }
 
   private void getWinner() {
@@ -37,5 +34,12 @@ public class GameResultsObserver implements ScoringObserver {
       teamA.setTotalDraws(teamA.getTotalDraws() + 1);
       teamB.setTotalDraws(teamB.getTotalDraws() + 1);
     }
+  }
+
+  private void displayTeamStats() {
+    System.out.printf(
+        "Team %s Total Wins: %d\nTeam %s Total Wins %d\n",
+        teamA.getName(), teamA.getTotalWins(), teamB.getName(), teamB.getTotalWins());
+    System.out.println();
   }
 }

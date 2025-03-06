@@ -42,10 +42,11 @@ public class MenuConsole {
         startGame();
         break;
       case 2:
+        scoring.resetGame();
         simulateQuarter();
         break;
       case 3:
-        printCurrentScore();
+        scoring.notifyGameSummary();
         break;
       case 4:
         scoring.notifyPredictions();
@@ -85,11 +86,5 @@ public class MenuConsole {
     scoring.addPoints(scoring.getTeamA(), random.nextInt(16));
     scoring.addPoints(scoring.getTeamB(), random.nextInt(16));
     scoring.nextQuarter();
-  }
-
-  private void printCurrentScore() {
-    System.out.println("Team A: " + scoring.getTeamA().getPoints());
-    System.out.println("Team B: " + scoring.getTeamB().getPoints());
-    System.out.println("Quarter: " + scoring.getGameQuarter());
   }
 }

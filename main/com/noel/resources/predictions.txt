@@ -7,3 +7,10 @@ Warriors,36,Celtics,28,38,30,true
 Lakers,44,Bulls,36,44,38,true
 Bulls,28,Celtics,28,29,30,false
 Lakers,40,Celtics,16,40,19,true
+Celtics,32,Bulls,32,34,33,false
+Lakers,28,Warriors,20,31,21,true
+Warriors,8,Bulls,16,9,16,true
+Warriors,20,Bulls,36,20,38,true
+Warriors,44,Bulls,40,47,40,true
+Celtics,28,Warriors,40,28,42,true
+Celtics,28,Warriors,16,31,16,true

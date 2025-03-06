@@ -24,17 +24,11 @@ public class Main {
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
 
-    Team teamA = teams.get(random.nextInt(teams.size()));
-    Team teamB;
-    do {
-      teamB = teams.get(random.nextInt(teams.size()));
-    } while (teamA.equals(teamB));
+    Team teamA = selectRandomTeam(teams, random);
+    Team teamB = selectDifferentRandomTeam(teams, random, teamA);
 
     Scoring scoring = new Scoring(teamA, teamB);
-    scoring.registerObserver(new GameSummaryObserver());
-    scoring.registerObserver(new FinalScorePredictionObserver());
-    scoring.registerObserver(new GameResultsObserver());
-    scoring.registerObserver(new GameNewsGenerator());
+    registerObservers(scoring);
 
     GameDataController gameDataController = new GameDataController(scoring);
     gameDataController.importTeamStatsFromFile();
@@ -43,5 +37,24 @@ public class Main {
     menu.displayMenu();
 
     gameDataController.exportStatsToFile();
+  }
+
+  private static void registerObservers(Scoring scoring) {
+    scoring.registerObserver(new GameSummaryObserver());
+    scoring.registerObserver(new FinalScorePredictionObserver());
+    scoring.registerObserver(new GameResultsObserver());
+    scoring.registerObserver(new GameNewsGenerator());
+  }
+
+  private static Team selectDifferentRandomTeam(List<Team> teams, Random random, Team teamA) {
+    Team teamB;
+    do {
+      teamB = selectRandomTeam(teams, random);
+    } while (teamA.equals(teamB));
+    return teamB;
+  }
+
+  private static Team selectRandomTeam(List<Team> teams, Random random) {
+    return teams.get(random.nextInt(teams.size()));
   }
 }

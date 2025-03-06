@@ -16,7 +16,7 @@ public class FinalScorePredictionObserver implements ScoringObserver {
     predictFinalScore();
   }
 
-  public void predictFinalScore() {
+  private void predictFinalScore() {
     teamA.setPredictedPoints(generatePrediction(teamA.getPoints()));
     teamB.setPredictedPoints(generatePrediction(teamB.getPoints()));
     System.out.printf(
