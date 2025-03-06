@@ -5,8 +5,10 @@ import main.com.noel.model.Scoring;
 import main.com.noel.model.Team;
 
 public class GameDataController {
-  Team teamA;
-  Team teamB;
+  private static final String TEAM_STATS_FILE_PATH = "main/com/noel/resources/team_standings.txt";
+  private static final String SCORES_FILE_PATH = "main/com/noel/resources/scores.txt";
+  private final Team teamA;
+  private final Team teamB;
 
   public GameDataController(Scoring scoring) {
     this.teamA = scoring.getTeamA();
@@ -14,8 +16,7 @@ public class GameDataController {
   }
 
   public void importTeamStatsFromFile() {
-    String filePath = "main/com/noel/resources/team_standings.txt";
-    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(TEAM_STATS_FILE_PATH))) {
       String line;
       boolean firstLine = true;
 
@@ -43,16 +44,15 @@ public class GameDataController {
           }
         }
       }
-    } catch (IOException e) {
-      System.out.println("Error reading file: " + e.getMessage());
-    } catch (NumberFormatException e) {
-      System.out.println("Invalid number format in file.");
+    } catch (IOException | NumberFormatException e) {
+      logError("Error reading team stats file: ", e);
     }
   }
 
-  public void exportStatsToFile() throws IOException {
-    String filePath = "main/com/noel/resources/team_standings.txt";
-    try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath))) {
+
+
+  public void exportStatsToFile() {
+    try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(TEAM_STATS_FILE_PATH))) {
       bufferedWriter.write("Team, Wins, Losses, Draws\n");
       bufferedWriter.write(
           teamA.getName()
@@ -73,14 +73,13 @@ public class GameDataController {
               + teamB.getTotalDraws()
               + "\n");
     } catch (IOException e) {
-      System.out.println("Error writing to file: " + e.getMessage());
+      logError("Error writing to file: ", e);
     }
   }
 
   public void saveGameResults() {
-    String filePath = "main/com/noel/resources/scores.txt";
     String winner = (teamA.getPoints() > teamB.getPoints()) ? teamA.getName() : teamB.getName();
-    try (FileWriter writer = new FileWriter(filePath, true)) {
+    try (FileWriter writer = new FileWriter(SCORES_FILE_PATH, true)) {
       writer.write(
           teamA.getName()
               + ","
@@ -93,28 +92,28 @@ public class GameDataController {
               + winner
               + "\n");
     } catch (IOException e) {
-      System.out.println("Error writing to file: " + e.getMessage());
+      logError("Error writing game results file", e);
     }
   }
 
   public void printTableOfScores() {
-    String filePath = "main/com/noel/resources/scores.txt";
-
     System.out.printf(
         "%-10s %-10s %-10s %-10s %-10s%n", "Team A", "Points", "Team B", "Points", "Winner");
     System.out.println("--------------------------------------------------");
 
-    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(SCORES_FILE_PATH))) {
       String line;
       while ((line = reader.readLine()) != null) {
         String[] data = line.split(",");
         System.out.printf(
             "%-10s %-10s %-10s %-10s %-10s%n", data[0], data[1], data[2], data[3], data[4]);
       }
-    } catch (IOException e) {
-      System.out.println("Error reading file: " + e.getMessage());
-    } catch (NumberFormatException e) {
-      System.out.println("Invalid number format in file.");
+    } catch (IOException | NumberFormatException e) {
+      logError("Error reading scores file", e);
     }
+  }
+
+  private void logError(String message, Exception e) {
+    System.err.println(message + ": " + e.getMessage());
   }
 }

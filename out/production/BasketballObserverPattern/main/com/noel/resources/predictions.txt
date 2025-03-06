@@ -5,3 +5,4 @@ Bulls,40,Lakers,24,43,24,true
 Celtics,44,Warriors,36,44,39,true
 Warriors,36,Celtics,28,38,30,true
 Lakers,44,Bulls,36,44,38,true
+Bulls,28,Celtics,28,29,30,false

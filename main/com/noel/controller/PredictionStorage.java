@@ -10,49 +10,56 @@ public class PredictionStorage {
   private static final String FILE_PATH = "main/com/noel/resources/predictions.txt";
 
   public static void printPredictions() {
-    int totalPredictions = 0;
-    int correctPredictions = 0;
-    double totalError = 0.0;
+    PredictionStats stats = new PredictionStats();
 
     try (BufferedReader reader = new BufferedReader((new FileReader(FILE_PATH)))) {
       String line;
       boolean isFirstLine = true;
+      // Skipping the header line here
       while ((line = reader.readLine()) != null) {
         if (isFirstLine) {
           isFirstLine = false;
-          continue; // Skip the header line
+          continue;
         }
-        String[] data = line.split(",");
-        if (data.length < 7) continue;
-
-        int predictedA = Integer.parseInt(data[1]);
-        int predictedB = Integer.parseInt(data[3]);
-        int actualA = Integer.parseInt(data[4]);
-        int actualB = Integer.parseInt(data[5]);
-        boolean correct = Boolean.parseBoolean(data[6]);
-
-        totalPredictions++;
-
-        if (correct) correctPredictions++;
-        totalError += (Math.abs(predictedA - actualA) + Math.abs(predictedB - actualB)) / 2.0;
+        processPredictions(line, stats);
       }
     } catch (IOException e) {
       System.out.println("Error reading file: " + e.getMessage());
-    } catch (NumberFormatException e) {
-      System.out.println("Invalid number format in file.");
     }
+    printStats(stats);
+  }
 
-    double accuracy = (double) correctPredictions / totalPredictions * 100;
-    double averageError = totalError / totalPredictions;
+  private static void processPredictions(String line, PredictionStats stats) {
+    String[] data = line.split(",");
+    if (data.length < 7) return;
+
+    try {
+      int predictedA = Integer.parseInt(data[1]);
+      int predictedB = Integer.parseInt(data[3]);
+      int actualA = Integer.parseInt(data[4]);
+      int actualB = Integer.parseInt(data[5]);
+      boolean correct = Boolean.parseBoolean(data[6]);
+
+      stats.totalPredictions++;
+      if (correct) stats.correctPredictions++;
+      stats.totalError += (Math.abs(predictedA - actualA) + Math.abs(predictedB - actualB)) / 2.0;
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid number format in prediction data: " + line);
+    }
+  }
+
+  private static void printStats(PredictionStats stats) {
+    double accuracy = (double) stats.correctPredictions / stats.totalPredictions * 100;
+    double averageError = stats.totalError / stats.totalPredictions;
 
     System.out.println("\nPrediction Statistics");
-    System.out.println("Total Predictions: " + totalPredictions);
+    System.out.println("Total Predictions: " + stats.totalPredictions);
     System.out.println(
-        "Correct Predictions: "
-            + correctPredictions
-            + " ("
-            + String.format("%.2f", accuracy)
-            + "%)");
+            "Correct Predictions: "
+                    + stats.correctPredictions
+                    + " ("
+                    + String.format("%.2f", accuracy)
+                    + "%)");
     System.out.println("Average Point Error: " + String.format("%.2f", averageError));
   }
 
@@ -87,5 +94,11 @@ public class PredictionStorage {
     int actualB = scoring.getTeamB().getPoints();
     return (predictedA > predictedB && actualA > actualB)
         || (predictedB > predictedA && actualB > actualA);
+  }
+
+  private static class PredictionStats {
+    int totalPredictions = 0;
+    int correctPredictions = 0;
+    double totalError = 0.0;
   }
 }

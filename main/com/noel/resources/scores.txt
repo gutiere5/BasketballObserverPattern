@@ -8,3 +8,5 @@ Bulls,43,Lakers,24,Bulls
 Celtics,44,Warriors,39,Celtics
 Warriors,38,Celtics,30,Warriors
 Lakers,44,Bulls,38,Lakers
+Bulls,29,Celtics,30,Celtics
+Lakers,40,Celtics,19,Lakers
